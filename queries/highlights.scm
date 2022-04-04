@@ -5,15 +5,12 @@
 
 (call_expression
   function: (selector_expression
-    field: (field_identifier) @function.method))
+    field: (field_identifier) @function))
 
 ; Function definitions
 
 (function_declaration
   name: (identifier) @function)
-
-(method_declaration
-  name: (field_identifier) @function.method)
 
 ; Identifiers
 
@@ -42,7 +39,6 @@
   "%"
   "%="
   "^"
-  "^="
   "+"
   "++"
   "+="
@@ -61,6 +57,7 @@
   "|="
   "||"
   "~"
+  "---"
 ] @operator
 
 ; Keywords
@@ -74,23 +71,25 @@
   "default"
   "defer"
   "else"
+  "or_else"
+  "or_return"
+  "when"
+  "where"
   "fallthrough"
   "for"
-  "func"
-  "go"
-  "goto"
+  "proc"
   "if"
+  "in"
   "import"
-  "interface"
   "map"
   "package"
   "range"
   "return"
   "select"
   "struct"
+  "union"
+  "enum"
   "switch"
-  "type"
-  "var"
 ] @keyword
 
 ; Literals
