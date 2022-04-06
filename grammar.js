@@ -98,6 +98,7 @@ module.exports = grammar({
         [$.literal_value, $.block_with_directive],
         [$.literal_value, $.block],
         [$.literal_element, $._simple_statement],
+        // [$.assignment_statement, $._expression],
     ],
 
     supertypes: $ => [
@@ -206,17 +207,6 @@ module.exports = grammar({
                 field('value', $.expression_list)
             )
         )),
-
-        var_spec: $ => seq(
-            field('name', commaSep1($.identifier)),
-            choice(
-                seq(
-                    field('type', $._type),
-                    optional(seq('=', field('value', $.expression_list)))
-                ),
-                seq('=', field('value', $.expression_list))
-            )
-        ),
 
         struct_declaration: $ => prec(2, seq(
             field('name', $._type_identifier),
@@ -544,21 +534,17 @@ module.exports = grammar({
         _simple_statement: $ => choice(
             $._expression,
             $.assignment_statement,
-            $.short_var_declaration
+            $.var_declaration_and_assignment,
         ),
 
         assignment_statement: $ => seq(
-            field('left', $.expression_list),
+            // field('left', $.expression_list),
+            field('name', commaSep1($.identifier)),
             field('operator', choice(...assignment_operators)),
             field('right', $.expression_list)
-        ),
-
-        short_var_declaration: $ => seq(
-            // TODO: this should really only allow identifier lists, but that causes
-            // conflicts between identifiers as expressions vs identifiers here.
-            field('left', $.expression_list),
-            ':=',
-            field('right', $.expression_list)
+            /* field('name', commaSep1($.identifier)),
+            '=',
+            field('value', $.expression_list) */
         ),
 
         labeled_statement: $ => seq(
@@ -687,7 +673,7 @@ module.exports = grammar({
             optional($._statement_list)
         ),
 
-        _expression: $ => choice(
+        _expression: $ => prec(5, choice(
             $.unary_expression,
             $.binary_expression,
             $.selector_expression,
@@ -713,7 +699,7 @@ module.exports = grammar({
             $.false,
             $.undefined,
             $.parenthesized_expression
-        ),
+        )),
 
         _const_expression: $ => choice(
             $.unary_expression,
