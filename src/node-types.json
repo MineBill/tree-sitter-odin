@@ -634,7 +634,7 @@
       },
       "type": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "_type",
@@ -1510,7 +1510,7 @@
         "required": false,
         "types": [
           {
-            "type": "int_literal",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -1520,7 +1520,7 @@
         "required": false,
         "types": [
           {
-            "type": "int_literal",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -2693,6 +2693,14 @@
     "named": false
   },
   {
+    "type": "..<",
+    "named": false
+  },
+  {
+    "type": "..=",
+    "named": false
+  },
+  {
     "type": "/",
     "named": false
   },
@@ -2782,6 +2790,10 @@
   },
   {
     "type": "any",
+    "named": false
+  },
+  {
+    "type": "auto_cast",
     "named": false
   },
   {

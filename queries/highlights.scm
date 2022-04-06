@@ -69,6 +69,8 @@
   "||"
   "~"
   ".."
+  "..<"
+  "..="
   "::"
 ] @operator
 
@@ -76,7 +78,7 @@
 
 [
   ; "asm"
-  ; "auto_cast"
+  "auto_cast"
   ; "bit_set"
   "cast"
   ; "context"

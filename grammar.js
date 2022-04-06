@@ -1,4 +1,4 @@
-// NOTE: As or right now '::' and ':=' are treated as sigle tokens.
+// NOTE: For right now '::' and ':=' are treated as sigle tokens.
 // That however is not true: https://odin-lang.org/docs/overview/#assignment-statements
 const
 PREC = {
@@ -625,14 +625,15 @@ module.exports = grammar({
             field('update', optional($._simple_statement))
         )),
 
+        // for i in 0...10.
         iterator_clause: $ => seq(
             field('variable', $.identifier),
             'in',
             choice(
                 seq(
-                    field('lower', $.int_literal),
-                    '..',
-                    field('upper', $.int_literal),
+                    field('lower', $._expression),
+                    choice('..', '..<', '..='),
+                    field('upper', $._expression),
                 ),
                 seq(
                     optional('&'),
@@ -733,10 +734,15 @@ module.exports = grammar({
         ),
 
         cast_expression: $ => seq(
-            'cast',
-            '(',
-                field('type', $._type),
-                ')',
+            choice(
+                seq(
+                    'cast',
+                    '(',
+                    field('type', $._type),
+                    ')',
+                ),
+                'auto_cast'
+            ),
             field('operand', $._expression)
         ),
 
