@@ -95,9 +95,10 @@ module.exports = grammar({
         [$.parameter_declaration, $._simple_type],
         [$._simple_type, $.qualified_type],
         [$.const_declaration_with_type, $.var_declaration],
-        [$.literal_value, $.block_with_directive],
-        [$.literal_value, $.block],
-        [$.literal_element, $._simple_statement],
+        [$.block_with_directive, $.literal_value],
+        [$.block, $.literal_value],
+        // [$.var_declaration_and_assignment, $.literal_value],
+        [$._simple_statement, $.literal_element],
         // [$.assignment_statement, $._expression],
     ],
 
@@ -188,7 +189,7 @@ module.exports = grammar({
             )
         )),
 
-        var_declaration: $ => prec.left(2, seq(
+        var_declaration: $ => prec.right(2, seq(
             field('name', commaSep1($.identifier)),
             seq(
                 ':',
@@ -200,7 +201,7 @@ module.exports = grammar({
             )
         )),
 
-        var_declaration_and_assignment: $ => prec.left(2, seq(
+        var_declaration_and_assignment: $ => prec.dynamic(20, seq(
             field('name', commaSep1($.identifier)),
             seq(
                 ':=',
@@ -212,6 +213,7 @@ module.exports = grammar({
             field('name', $._type_identifier),
             '::',
             'struct',
+            optional($.simple_directive),
             field('parameters', optional($.parameter_list)),
             field('body', $.field_declaration_list)
         )),
@@ -289,7 +291,7 @@ module.exports = grammar({
 
         parameter_declaration: $ => seq(
             optional('using'),
-            commaSep1(field('name', $.identifier)),
+            commaSep1(field('name', seq(optional('$'), $.identifier))),
             /* ':',
             field('type', $._type), */
             choice(
@@ -358,6 +360,8 @@ module.exports = grammar({
             $.qualified_type,
             $.pointer_type,
             $.struct_type,
+            $.union_type,
+            $.enum_type,
             $.array_type,
             $.dynamic_array_type,
             $.implicit_length_array_type,
@@ -403,6 +407,16 @@ module.exports = grammar({
         struct_type: $ => seq(
             'struct',
             $.field_declaration_list
+        ),
+
+        enum_type: $ => seq(
+            'enum',
+            $.enum_value_list
+        ),
+
+        union_type: $ => seq(
+            'union',
+            $.union_value_list
         ),
 
         field_declaration_list: $ => seq(
@@ -491,6 +505,7 @@ module.exports = grammar({
         simple_directive: $ => prec(1, seq(
             '#',
             $._directive_identifier,
+            field('argument', optional(choice($.int_literal, $.float_literal)))
         )),
 
         function_directive: $ => prec.right(2, seq(
@@ -537,7 +552,7 @@ module.exports = grammar({
             $.var_declaration_and_assignment,
         ),
 
-        assignment_statement: $ => seq(
+        assignment_statement: $ => prec(1, seq(
             // field('left', $.expression_list),
             field('name', commaSep1($.identifier)),
             field('operator', choice(...assignment_operators)),
@@ -545,7 +560,7 @@ module.exports = grammar({
             /* field('name', commaSep1($.identifier)),
             '=',
             field('value', $.expression_list) */
-        ),
+        )),
 
         labeled_statement: $ => seq(
             field('label', alias($.identifier, $.label_name)),
@@ -572,7 +587,7 @@ module.exports = grammar({
 
         return_statement: $ => seq('return', optional($.expression_list)),
 
-        defer_statement: $ => seq('defer', $._expression),
+        defer_statement: $ => seq('defer', $._statement),
 
         if_statement: $ => seq(
             'if',
@@ -615,6 +630,12 @@ module.exports = grammar({
         // for i in 0...10.
         iterator_clause: $ => seq(
             field('variable', $.identifier),
+            optional(
+                seq(
+                    ',',
+                    field('index', $.identifier),
+                )
+            ),
             'in',
             choice(
                 seq(

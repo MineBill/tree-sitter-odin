@@ -382,9 +382,9 @@ control_flow :: proc() {
     }
 
     {// Branch statements
-        cond, cond1, cond2 := false, false, false
         one_step :: proc() {fmt.println("one_step")}
         beyond :: proc() {fmt.println("beyond")}
+        cond, cond1, cond2 := false, false, false
 
         // Break statement
         for cond {
@@ -926,11 +926,11 @@ parametric_polymorphism :: proc() {
             value:    Value,
         }
         TABLE_SIZE_MIN :: 32
-        Table :: struct($Key, $Value: typeid) {
-            count:     int,
-            allocator: mem.Allocator,
-            slots:     []Table_Slot(Key, Value),
-        }
+        // Table :: struct($Key, $Value: typeid) {
+        //     count:     int,
+        //     allocator: mem.Allocator,
+        //     slots:     []Table_Slot(Key, Value),
+        // }
 
         // Only allow types that are specializations of a (polymorphic) slice
         make_slice :: proc($T: typeid/[]$E, len: int) -> T {
