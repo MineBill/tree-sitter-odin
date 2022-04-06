@@ -7,27 +7,39 @@
   function: (selector_expression
     field: (field_identifier) @function))
 
-; Function definitions
+
+; ; Function definitions
 
 (function_declaration
   name: (identifier) @function)
 
-; Identifiers
+(proc_group
+  (identifier) @function)
+
+; ; Identifiers
 
 (type_identifier) @type
 (field_identifier) @property
 (identifier) @variable
 
-; Operators
+(const_declaration
+  (identifier) @constant)
+(const_declaration_with_type
+  (identifier) @constant)
+
+"any" @type
+
+(directive_identifier) @constant
+
+; ; Operators
 
 [
-  "--"
+  "?"
   "-"
   "-="
   ":="
   "!"
   "!="
-  "..."
   "*"
   "*"
   "*="
@@ -40,7 +52,6 @@
   "%="
   "^"
   "+"
-  "++"
   "+="
   "<-"
   "<"
@@ -57,42 +68,51 @@
   "|="
   "||"
   "~"
-  "---"
+  ".."
+  "::"
 ] @operator
 
-; Keywords
+; ; Keywords
 
 [
+  ; "asm"
+  ; "auto_cast"
+  ; "bit_set"
+  "cast"
+  ; "context"
+  ; "or_else"
+  ; "or_return"
+  "in"
+  ; "not_in"
+  ; "distinct"
+  "foreign"
+  "transmute"
+  ; "typeid"
+
   "break"
   "case"
-  "chan"
-  "const"
   "continue"
-  "default"
   "defer"
   "else"
-  "or_else"
-  "or_return"
+  "using"
   "when"
   "where"
   "fallthrough"
   "for"
   "proc"
   "if"
-  "in"
   "import"
   "map"
   "package"
-  "range"
   "return"
-  "select"
   "struct"
   "union"
   "enum"
   "switch"
+  "dynamic"
 ] @keyword
 
-; Literals
+; ; Literals
 
 [
   (interpreted_string_literal)
@@ -112,7 +132,7 @@
   (true)
   (false)
   (nil)
-  (iota)
-] @constant.builtin
+  (undefined)
+] @constant
 
 (comment) @comment
