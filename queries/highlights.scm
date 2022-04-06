@@ -86,7 +86,7 @@
   ; "or_return"
   "in"
   ; "not_in"
-  ; "distinct"
+  "distinct"
   "foreign"
   "transmute"
   ; "typeid"

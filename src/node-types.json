@@ -2825,6 +2825,10 @@
     "named": true
   },
   {
+    "type": "distinct",
+    "named": false
+  },
+  {
     "type": "dynamic",
     "named": false
   },
