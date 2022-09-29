@@ -737,7 +737,7 @@
         "required": true,
         "types": [
           {
-            "type": "const_expression_list",
+            "type": "expression_list",
             "named": true
           }
         ]
@@ -777,7 +777,11 @@
         "required": true,
         "types": [
           {
-            "type": "expression_list",
+            "type": "const_expression_list",
+            "named": true
+          },
+          {
+            "type": "qualified_identifier",
             "named": true
           }
         ]
@@ -1241,6 +1245,20 @@
           }
         ]
       },
+      "calling_convention": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "interpreted_string_literal",
+            "named": true
+          },
+          {
+            "type": "raw_string_literal",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -1280,14 +1298,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "interpreted_string_literal",
-          "named": true
-        },
-        {
-          "type": "raw_string_literal",
-          "named": true
-        },
         {
           "type": "simple_directive",
           "named": true
@@ -1893,6 +1903,32 @@
     }
   },
   {
+    "type": "qualified_identifier",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "package": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "package_identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "qualified_type",
     "named": true,
     "fields": {
@@ -1949,7 +1985,7 @@
       },
       "operand": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "_expression",

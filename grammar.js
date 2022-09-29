@@ -158,10 +158,10 @@ module.exports = grammar({
         ),
 
         _declaration: $ => prec(2, choice(
+            $.type_alias,
             $.struct_declaration,
             $.enum_declaration,
             $.union_declaration,
-            $.type_alias,
             $.const_declaration,
             $.const_declaration_with_type,
             $.var_declaration,
@@ -169,11 +169,16 @@ module.exports = grammar({
             $.var_declaration_and_assignment,
         )),
 
-        const_declaration: $ => prec.left(2, seq(
+        const_declaration: $ => prec.left(3, seq(
+            /* field('name', commaSep1($.identifier)),
+            seq(
+                '::',
+                field('value', choice($.qualified_identifier, $.const_expression_list))
+            ) */
             field('name', commaSep1($.identifier)),
             seq(
                 '::',
-                field('value', $.const_expression_list)
+                field('value', $.expression_list)
             )
         )),
 
@@ -184,7 +189,7 @@ module.exports = grammar({
                 field('type', $._type),
                 seq(
                     ':',
-                    field('value', $.expression_list)
+                    field('value', choice($.const_expression_list, $.qualified_identifier))
                 )
             )
         )),
@@ -327,7 +332,8 @@ module.exports = grammar({
         type_alias: $ => seq(
             field('name', $._type_identifier),
             '::',
-            optional('distinct'),
+            'distinct',
+            // optional($.selector_expression),
             field('type', $._type)
         ),
 
@@ -739,7 +745,7 @@ module.exports = grammar({
             $.true,
             $.false,
             $.undefined,
-            $.parenthesized_expression
+            $.parenthesized_expression,
         ),
 
         cast_expression: $ => seq(
@@ -805,7 +811,7 @@ module.exports = grammar({
         ),
 
         selector_expression: $ => prec(PREC.primary, seq(
-            optional(field('operand', $._expression)),
+            field('operand', $._expression),
             '.',
             field('field', $._field_identifier)
         )),
@@ -813,8 +819,8 @@ module.exports = grammar({
         index_expression: $ => prec(PREC.primary, seq(
             field('operand', $._expression),
             '[',
-                field('index', $._expression),
-                ']'
+            field('index', $._expression),
+            ']'
         )),
 
         slice_expression: $ => prec(PREC.primary, seq(
@@ -922,6 +928,12 @@ module.exports = grammar({
             field('package', $._package_identifier),
             '.',
             field('name', $._type_identifier)
+        ),
+
+        qualified_identifier: $ => seq(
+            field('package', $._package_identifier),
+            '.',
+            field('name', $.identifier)
         ),
 
         identifier: $ => token(seq(
