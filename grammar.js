@@ -237,6 +237,7 @@ module.exports = grammar({
             '::',
             optional($.simple_directive),
             'proc',
+            field('calling_convention', optional($._string_literal)),
             field('parameters', $.parameter_list),
             optional($.where_clause),
             optional('->'),

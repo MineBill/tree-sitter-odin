@@ -213,6 +213,10 @@
         "members": [
           {
             "type": "SYMBOL",
+            "name": "type_alias"
+          },
+          {
+            "type": "SYMBOL",
             "name": "struct_declaration"
           },
           {
@@ -222,10 +226,6 @@
           {
             "type": "SYMBOL",
             "name": "union_declaration"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "type_alias"
           },
           {
             "type": "SYMBOL",
@@ -672,6 +672,18 @@
           {
             "type": "STRING",
             "value": "proc"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_string_literal"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           },
           {
             "type": "FIELD",

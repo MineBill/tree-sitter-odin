@@ -1281,6 +1281,14 @@
       "required": false,
       "types": [
         {
+          "type": "interpreted_string_literal",
+          "named": true
+        },
+        {
+          "type": "raw_string_literal",
+          "named": true
+        },
+        {
           "type": "simple_directive",
           "named": true
         },
