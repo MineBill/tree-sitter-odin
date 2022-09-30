@@ -234,6 +234,10 @@
         "named": true
       },
       {
+        "type": "import_declaration",
+        "named": true
+      },
+      {
         "type": "labeled_statement",
         "named": true
       },
@@ -1202,36 +1206,6 @@
     }
   },
   {
-    "type": "foreign_import",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "foreign_lib_identifier",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "interpreted_string_literal",
-            "named": true
-          },
-          {
-            "type": "raw_string_literal",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "function_declaration",
     "named": true,
     "fields": {
@@ -1985,7 +1959,7 @@
       },
       "operand": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "_expression",
@@ -2101,14 +2075,6 @@
         },
         {
           "type": "foreign_block",
-          "named": true
-        },
-        {
-          "type": "foreign_import",
-          "named": true
-        },
-        {
-          "type": "import_declaration",
           "named": true
         },
         {

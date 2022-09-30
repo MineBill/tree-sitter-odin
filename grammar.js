@@ -123,15 +123,7 @@ module.exports = grammar({
             $.function_declaration,
             $.proc_group,
             $.import_declaration,
-            $.foreign_import,
             $.foreign_block,
-        ),
-
-        foreign_import: $ => seq(
-            'foreign',
-            'import',
-            field('name',$._foreign_lib_identifier),
-            field('value', $._string_literal)
         ),
 
         foreign_block: $ => seq(
@@ -146,6 +138,7 @@ module.exports = grammar({
         ),
 
         import_declaration: $ => seq(
+            optional('foreign'),
             'import',
             $.import_spec,
         ),
@@ -167,6 +160,7 @@ module.exports = grammar({
             $.var_declaration,
             $.function_declaration,
             $.var_declaration_and_assignment,
+            $.import_declaration,
         )),
 
         const_declaration: $ => prec.left(3, seq(
@@ -811,7 +805,7 @@ module.exports = grammar({
         ),
 
         selector_expression: $ => prec(PREC.primary, seq(
-            field('operand', $._expression),
+            optional(field('operand', $._expression)),
             '.',
             field('field', $._field_identifier)
         )),

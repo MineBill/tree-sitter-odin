@@ -83,40 +83,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "foreign_import"
-        },
-        {
-          "type": "SYMBOL",
           "name": "foreign_block"
-        }
-      ]
-    },
-    "foreign_import": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "foreign"
-        },
-        {
-          "type": "STRING",
-          "value": "import"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_foreign_lib_identifier"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "value",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_string_literal"
-          }
         }
       ]
     },
@@ -161,6 +128,18 @@
     "import_declaration": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "foreign"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "STRING",
           "value": "import"
@@ -246,6 +225,10 @@
           {
             "type": "SYMBOL",
             "name": "var_declaration_and_assignment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "import_declaration"
           }
         ]
       }
@@ -3838,12 +3821,20 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "FIELD",
-            "name": "operand",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_expression"
-            }
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "operand",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           },
           {
             "type": "STRING",
