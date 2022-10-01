@@ -136,10 +136,6 @@
         "named": true
       },
       {
-        "type": "function_type",
-        "named": true
-      },
-      {
         "type": "generic_type",
         "named": true
       },
@@ -1300,36 +1296,6 @@
           "named": true
         }
       ]
-    }
-  },
-  {
-    "type": "function_type",
-    "named": true,
-    "fields": {
-      "parameters": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "parameter_list",
-            "named": true
-          }
-        ]
-      },
-      "result": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "_simple_type",
-            "named": true
-          },
-          {
-            "type": "parameter_list",
-            "named": true
-          }
-        ]
-      }
     }
   },
   {
@@ -2940,10 +2906,6 @@
   {
     "type": "foreign_lib_identifier",
     "named": true
-  },
-  {
-    "type": "func",
-    "named": false
   },
   {
     "type": "identifier",

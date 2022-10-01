@@ -90,8 +90,6 @@ module.exports = grammar({
         [$.parameter_declaration, $._simple_type, $._expression],
         [$.parameter_declaration, $.generic_type, $._expression],
         [$.parameter_declaration, $._expression],
-        [$.func_literal, $.function_type],
-        [$.function_type],
         [$.parameter_declaration, $._simple_type],
         [$._simple_type, $.qualified_type],
         [$.const_declaration_with_type, $.var_declaration],
@@ -368,7 +366,6 @@ module.exports = grammar({
             $.implicit_length_array_type,
             $.slice_type,
             $.map_type,
-            $.function_type
         ),
 
         generic_type: $ => seq(
@@ -484,11 +481,6 @@ module.exports = grammar({
             field('value', $._type)
         ),
 
-        function_type: $ => seq(
-            'func',
-            field('parameters', $.parameter_list),
-            field('result', optional(choice($.parameter_list, $._simple_type)))
-        ),
 
         block: $ => seq(
             '{',
@@ -710,7 +702,6 @@ module.exports = grammar({
             $.identifier,
             alias(choice('new', 'make'), $.identifier),
             $.composite_literal,
-            //$.func_literal,
             $._string_literal,
             $.int_literal,
             $.float_literal,
@@ -887,13 +878,6 @@ module.exports = grammar({
         // - a literal_element (when T is an array).
         // The first two cases cannot be distinguished without type information.
         keyed_element: $ => seq($.literal_element, '=', $.literal_element),
-
-        func_literal: $ => seq(
-            'func',
-            field('parameters', $.parameter_list),
-            field('result', optional(choice($.parameter_list, $._simple_type))),
-            field('body', $.block)
-        ),
 
         unary_expression: $ => prec(PREC.unary, seq(
             field('operator', choice('+', '-', '!', '^', '*', '&', '<-')),

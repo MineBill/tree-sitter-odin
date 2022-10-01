@@ -1481,10 +1481,6 @@
         {
           "type": "SYMBOL",
           "name": "map_type"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "function_type"
         }
       ]
     },
@@ -2077,48 +2073,6 @@
           "content": {
             "type": "SYMBOL",
             "name": "_type"
-          }
-        }
-      ]
-    },
-    "function_type": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "func"
-        },
-        {
-          "type": "FIELD",
-          "name": "parameters",
-          "content": {
-            "type": "SYMBOL",
-            "name": "parameter_list"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "result",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "parameter_list"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_simple_type"
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
           }
         }
       ]
@@ -4268,56 +4222,6 @@
         {
           "type": "SYMBOL",
           "name": "literal_element"
-        }
-      ]
-    },
-    "func_literal": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "func"
-        },
-        {
-          "type": "FIELD",
-          "name": "parameters",
-          "content": {
-            "type": "SYMBOL",
-            "name": "parameter_list"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "result",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "parameter_list"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_simple_type"
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "body",
-          "content": {
-            "type": "SYMBOL",
-            "name": "block"
-          }
         }
       ]
     },
@@ -7185,13 +7089,6 @@
     [
       "parameter_declaration",
       "_expression"
-    ],
-    [
-      "func_literal",
-      "function_type"
-    ],
-    [
-      "function_type"
     ],
     [
       "parameter_declaration",
