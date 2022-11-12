@@ -71,10 +71,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "function_declaration"
-        },
-        {
-          "type": "SYMBOL",
           "name": "proc_group"
         },
         {
@@ -220,10 +216,6 @@
           },
           {
             "type": "SYMBOL",
-            "name": "function_declaration"
-          },
-          {
-            "type": "SYMBOL",
             "name": "var_declaration_and_assignment"
           },
           {
@@ -276,12 +268,25 @@
                 "value": "::"
               },
               {
-                "type": "FIELD",
-                "name": "value",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "expression_list"
-                }
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "FIELD",
+                    "name": "value",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "expression_list"
+                    }
+                  },
+                  {
+                    "type": "FIELD",
+                    "name": "type",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_type"
+                    }
+                  }
+                ]
               }
             ]
           }
@@ -631,24 +636,12 @@
         ]
       }
     },
-    "function_declaration": {
-      "type": "PREC_RIGHT",
-      "value": 5,
+    "proc_fluff": {
+      "type": "PREC_LEFT",
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
-          {
-            "type": "FIELD",
-            "name": "name",
-            "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
-            }
-          },
-          {
-            "type": "STRING",
-            "value": "::"
-          },
           {
             "type": "CHOICE",
             "members": [
@@ -2379,6 +2372,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "using_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "var_declaration_and_assignment"
         }
       ]
@@ -2481,6 +2478,27 @@
             "content": {
               "type": "SYMBOL",
               "name": "expression_list"
+            }
+          }
+        ]
+      }
+    },
+    "using_statement": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "using"
+          },
+          {
+            "type": "FIELD",
+            "name": "packge",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_package_identifier"
             }
           }
         ]
@@ -3288,6 +3306,10 @@
           {
             "type": "SYMBOL",
             "name": "function_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "proc_fluff"
           },
           {
             "type": "SYMBOL",

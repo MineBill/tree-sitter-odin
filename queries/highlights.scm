@@ -1,31 +1,32 @@
-; Function calls
+(selector_expression
+  field: (field_identifier) @property)
 
+(proc_group
+  (identifier) @function)
+
+(type_identifier) @type
+(identifier) @variable
+
+(field_declaration
+  name: (field_identifier) @property)
+
+(const_declaration
+  (identifier) @constant)
+(const_declaration_with_type
+  (identifier) @constant)
+
+; proc declaration
+(const_declaration
+  name: (identifier) @function
+  value: (expression_list (proc_fluff)))
+
+; proc call
 (call_expression
   function: (identifier) @function)
 
 (call_expression
   function: (selector_expression
     field: (field_identifier) @function))
-
-
-; ; Function definitions
-
-(function_declaration
-  name: (identifier) @function)
-
-(proc_group
-  (identifier) @function)
-
-; ; Identifiers
-
-(type_identifier) @type
-(field_identifier) @property
-(identifier) @variable
-
-(const_declaration
-  (identifier) @constant)
-(const_declaration_with_type
-  (identifier) @constant)
 
 "any" @type
 

@@ -118,7 +118,7 @@ module.exports = grammar({
 
         _top_level_declaration: $ => choice(
             $.package_clause,
-            $.function_declaration,
+            // $.function_declaration,
             $.proc_group,
             $.import_declaration,
             $.foreign_block,
@@ -156,7 +156,7 @@ module.exports = grammar({
             $.const_declaration,
             $.const_declaration_with_type,
             $.var_declaration,
-            $.function_declaration,
+            // $.function_declaration,
             $.var_declaration_and_assignment,
             $.import_declaration,
         )),
@@ -170,7 +170,7 @@ module.exports = grammar({
             field('name', commaSep1($.identifier)),
             seq(
                 '::',
-                field('value', $.expression_list)
+                choice(field('value', $.expression_list), field('type', $._type))
             )
         )),
 
@@ -229,9 +229,7 @@ module.exports = grammar({
             field('values', $.union_value_list)
         )),
 
-        function_declaration: $ => prec.right(5, seq(
-            field('name', $.identifier),
-            '::',
+        proc_expression: $ => prec.left(seq(
             optional($.simple_directive),
             'proc',
             field('calling_convention', optional($._string_literal)),
@@ -542,6 +540,7 @@ module.exports = grammar({
         _simple_statement: $ => choice(
             $._expression,
             $.assignment_statement,
+            $.using_statement,
             $.var_declaration_and_assignment,
         ),
 
@@ -553,6 +552,11 @@ module.exports = grammar({
             /* field('name', commaSep1($.identifier)),
             '=',
             field('value', $.expression_list) */
+        )),
+
+        using_statement: $ => prec(1, seq(
+            'using',
+            field('packge', $._package_identifier),
         )),
 
         labeled_statement: $ => seq(
@@ -695,6 +699,7 @@ module.exports = grammar({
             $.slice_expression,
             $.call_expression,
             $.function_directive,
+            $.proc_expression,
             $.type_assertion_expression,
             $.type_conversion_expression,
             $.cast_expression,
