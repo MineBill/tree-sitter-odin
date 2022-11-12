@@ -18,7 +18,7 @@
 ; proc declaration
 (const_declaration
   name: (identifier) @function
-  value: (expression_list (proc_fluff)))
+  value: (expression_list (proc_expression)))
 
 ; proc call
 (call_expression

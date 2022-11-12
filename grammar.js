@@ -95,9 +95,7 @@ module.exports = grammar({
         [$.const_declaration_with_type, $.var_declaration],
         [$.block_with_directive, $.literal_value],
         [$.block, $.literal_value],
-        // [$.var_declaration_and_assignment, $.literal_value],
         [$._simple_statement, $.literal_element],
-        // [$.assignment_statement, $._expression],
     ],
 
     supertypes: $ => [
@@ -546,7 +544,7 @@ module.exports = grammar({
 
         assignment_statement: $ => prec(1, seq(
             // field('left', $.expression_list),
-            field('name', commaSep1($.identifier)),
+            field('name', commaSep1(choice(prec(5, $.identifier), $.selector_expression))),
             field('operator', choice(...assignment_operators)),
             field('right', $.expression_list)
             /* field('name', commaSep1($.identifier)),
@@ -642,7 +640,7 @@ module.exports = grammar({
                 ),
                 seq(
                     optional('&'),
-                    field('iterator', $.identifier)
+                    field('iterator', $._expression)
                 ),
             ),
         ),

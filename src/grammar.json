@@ -636,7 +636,7 @@
         ]
       }
     },
-    "proc_fluff": {
+    "proc_expression": {
       "type": "PREC_LEFT",
       "value": 0,
       "content": {
@@ -2393,8 +2393,21 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "identifier"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "PREC",
+                      "value": 5,
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "identifier"
+                      }
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "selector_expression"
+                    }
+                  ]
                 },
                 {
                   "type": "REPEAT",
@@ -2406,8 +2419,21 @@
                         "value": ","
                       },
                       {
-                        "type": "SYMBOL",
-                        "name": "identifier"
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "PREC",
+                            "value": 5,
+                            "content": {
+                              "type": "SYMBOL",
+                              "name": "identifier"
+                            }
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "selector_expression"
+                          }
+                        ]
                       }
                     ]
                   }
@@ -3006,7 +3032,7 @@
                   "name": "iterator",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "identifier"
+                    "name": "_expression"
                   }
                 }
               ]
@@ -3309,7 +3335,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "proc_fluff"
+            "name": "proc_expression"
           },
           {
             "type": "SYMBOL",

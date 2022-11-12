@@ -60,7 +60,7 @@
         "named": true
       },
       {
-        "type": "proc_fluff",
+        "type": "proc_expression",
         "named": true
       },
       {
@@ -356,6 +356,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "selector_expression",
             "named": true
           }
         ]
@@ -1431,7 +1435,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -1753,7 +1757,7 @@
     }
   },
   {
-    "type": "proc_fluff",
+    "type": "proc_expression",
     "named": true,
     "fields": {
       "body": {
